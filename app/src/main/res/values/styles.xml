@@ -1,0 +1,44 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="backgroundColor">@color/colorPrimaryLight</item>
+        <item name="textColor">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="disabledBtnColor">@color/disabledButton</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="animalRes">@drawable/animal_icon</item>
+        <item name="settingsRes">@drawable/settings</item>
+        <item name="helpRes">@drawable/help</item>
+    </style>
+
+
+
+    <style name="AppTheme.DarkMode" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="backgroundColor">@color/colorPrimaryDark_DarkMode</item>
+        <item name="textColor">@color/colorPrimaryLight</item>
+        <item name="colorAccent">@color/colorPrimaryLight</item>
+        <item name="disabledBtnColor">@color/disabledButton</item>
+
+
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="animalRes">@drawable/animal_icon_dark</item>
+        <item name="settingsRes">@drawable/settings_icon_dark</item>
+        <item name="helpRes">@drawable/help_icon_dark</item>
+    </style>
+
+
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+
+</resources>

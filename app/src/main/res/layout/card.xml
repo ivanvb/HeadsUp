@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="125dp"
+        android:layout_height="175dp"
+        app:cardElevation="6dp"
+        android:layout_margin="30dp"
+        android:padding="10dp"
+        app:cardCornerRadius="10dp"
+        android:id="@+id/card"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        app:cardBackgroundColor="?attr/backgroundColor">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_centerInParent="true"
+
+                android:id="@+id/popcorn"/>
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+
+                android:id="@+id/trophy"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                />
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="25dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/trophy"
+                android:text="12"
+                android:textColor="?attr/textColor"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:id="@+id/clock"
+
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="25dp"
+                android:layout_height="18dp"
+                android:id="@+id/time"
+                android:text="60"
+                android:textColor="?attr/textColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_toLeftOf="@+id/clock"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:text="MOVIES"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/popcorn"
+                android:id="@+id/desc"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:textColor="?attr/textColor"/>
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
