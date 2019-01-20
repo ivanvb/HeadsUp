@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         btn = findViewById(R.id.btnPlay);
+        btn.setOnClickListener(this);
         btn.setEnabled(false);
 
         setCards();
@@ -75,6 +76,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getId() == R.id.settings)
         {
             showSettings();
+        }
+        else if(v.getId() == R.id.btnPlay)
+        {
+            intent = new Intent(this, GameActivity.class);
+            intent.putExtra("theme", theme);
+            startActivity(intent);
         }
     }
 
