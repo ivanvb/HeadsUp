@@ -9,5 +9,7 @@
         <attr name="animalRes" format="reference"/>
         <attr name="settingsRes" format="reference"/>
         <attr name="helpRes" format="reference"/>
+        <attr name="trophyRes" format="reference"/>
+        <attr name="clockRes" format="reference"/>
     </declare-styleable>
 </resources>
