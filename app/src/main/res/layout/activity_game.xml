@@ -14,19 +14,19 @@
         android:textSize="52sp"
         android:textColor="?attr/textColor"
         android:layout_centerInParent="true"
-        android:text="iiiii"
         android:layout_above="@+id/tvWord"
         android:textStyle="bold"/>
 
     <TextView
+        android:textAllCaps="true"
         android:id="@+id/tvWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="52sp"
+        android:textSize="58sp"
         android:textColor="?attr/textColor"
         android:layout_centerInParent="true"
-        android:text="JOHN CENA"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:gravity="center"/>
 
 
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
@@ -25,6 +26,7 @@ import org.w3c.dom.Attr;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences sharedPref ;
     SharedPreferences.Editor editor;
     String theme;
+    String chosenCategory;
+    ArrayList <String> chosenWordList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             intent = new Intent(this, GameActivity.class);
             intent.putExtra("theme", theme);
+            intent.putExtra("category", chosenCategory);
+            intent.putExtra("wordList", chosenWordList);
             startActivity(intent);
         }
     }
@@ -113,14 +119,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setCards()
     {
+        Resources res = getResources();
         ArrayList <CardContent> cards = new ArrayList<CardContent>();
 
-        cards.add(new CardContent("MOVIES", R.drawable.cinema, "13","12", "12"));
-        cards.add(new CardContent("ANIMALS", R.drawable.animal_icon, "13","12", "12"));
-        cards.add(new CardContent("SINGERS", R.drawable.micro, "13","12", "12"));
-        cards.add(new CardContent("CULTURES", R.drawable.globe, "12","12", "12"));
-        cards.add(new CardContent("ACTIONS", R.drawable.exercise, "12","12", "12"));
-        cards.add(new CardContent("ACCENTS", R.drawable.voice, "12","12", "12"));
+        cards.add(new CardContent("MOVIES", R.drawable.cinema, "13",
+                            "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.gym)))));
+        cards.add(new CardContent("ANIMALS", R.drawable.animal_icon,
+                "13","12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.animals)))));
+        cards.add(new CardContent("SINGERS", R.drawable.micro, "13",
+                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.proffesions)))));
+        cards.add(new CardContent("CULTURES", R.drawable.globe, "12",
+                "12", "12",new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));
+        cards.add(new CardContent("ACTIONS", R.drawable.exercise, "12",
+                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.actions)))));
+        cards.add(new CardContent("ACCENTS", R.drawable.voice, "12",
+                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));
 
         registerCards(cards);
     }
@@ -130,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayout li = findViewById(R.id.li);
         LayoutInflater inf = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        for(CardContent card : cards)
+        for(final CardContent card : cards)
         {
             View cv = inf.inflate(R.layout.card, null, false);
 
@@ -147,6 +160,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     TextView sel = findViewById(R.id.select);
                     btn.setEnabled(true);
                     sel.setText(currentText);
+                    chosenCategory = currentText;
+                    chosenWordList = card.getWords();
                 }
             });
 

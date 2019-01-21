@@ -1,5 +1,7 @@
 package com.example.headsup;
 
+import java.util.ArrayList;
+
 public class CardContent {
 
     String cardText;
@@ -7,15 +9,17 @@ public class CardContent {
     String score60;
     String score90;
     String score120;
+    ArrayList<String> words;
 
     public CardContent(String cardText, int image, String cardScore60, String cardScore90,
-                       String cardScoe120)
+                       String cardScoe120, ArrayList<String> words)
     {
         this.cardText = cardText;
         this.image = image;
         this.score60 = cardScore60;
         this.score90 = cardScore90;
         this.score120 = cardScoe120;
+        this.words = words;
     }
 
     public String getCardText() {
@@ -56,5 +60,13 @@ public class CardContent {
 
     public void setScore120(String score120) {
         this.score120 = score120;
+    }
+
+    public ArrayList<String> getWords() {
+        return words;
+    }
+
+    public void setWords(ArrayList<String> words) {
+        this.words = words;
     }
 }

@@ -51,9 +51,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         updateTheme();
         setContentView(R.layout.activity_game);
 
-
-
-        words = new ArrayList<>(Arrays.asList("JOHN CENA", "MAQUIMAN", "CHING CHONG", "EL POPOCHAS"));
+        words = getWords();
         now = System.currentTimeMillis();
         changeWord();
         next = 0;
@@ -81,6 +79,14 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         String theme = (String) bundle.get("theme");
         changeTheme(theme);
 
+    }
+
+    private ArrayList<String> getWords()
+    {
+        intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        ArrayList<String> words = (ArrayList<String>) bundle.get("wordList");
+        return words;
     }
 
     private void changeTheme(String theme)
