@@ -3,6 +3,8 @@
     <string name="title">HEADS UP</string>
     <string name="selection">SELECT A CATEGORY</string>
     <string name="play_button">PLAY</string>
+    <string name="correct">CORRECT</string>
+    <string name="incorrect">INCORRECT</string>
 
     <!--Settings related strings-->
     <string name="settings_title">SETTINGS</string>
@@ -238,7 +240,7 @@
         <item name="treadmill">treadmill</item>
     </string-array>
 
-    <string-array name="proffesions">
+    <string-array name="professions">
         <item name="Acupuncturists">Acupuncturists</item>
         <item name="Agrologists">Agrologists</item>
         <item name="Architects">Architects</item>

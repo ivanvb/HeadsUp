@@ -1,17 +1,19 @@
 package com.example.headsup;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 
 public class CardContent {
 
     String cardText;
-    int image;
+    Drawable image;
     String score60;
     String score90;
     String score120;
     ArrayList<String> words;
 
-    public CardContent(String cardText, int image, String cardScore60, String cardScore90,
+    public CardContent(String cardText, Drawable image, String cardScore60, String cardScore90,
                        String cardScoe120, ArrayList<String> words)
     {
         this.cardText = cardText;
@@ -30,11 +32,11 @@ public class CardContent {
         this.cardText = cardText;
     }
 
-    public int getCardImage() {
+    public Drawable getCardImage() {
         return image;
     }
 
-    public void setCardImage(int image) {
+    public void setCardImage(Drawable image) {
         this.image = image;
     }
 

@@ -41,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     TextView tvWord;
     TextView tvTimer;
     Context sensorContext;
+    String correctText, incorrectText;
 
     int STEP = 2000;
     int correct = 0, incorrect = 0;
@@ -51,6 +52,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         updateTheme();
         setContentView(R.layout.activity_game);
 
+        correctText = getResources().getString( R.string.correct );
+        incorrectText = getResources().getString( R.string.incorrect );
         words = getWords();
         now = System.currentTimeMillis();
         changeWord();
@@ -150,7 +153,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
         float orientation[] = new float[9];
         SensorManager.getOrientation(R, orientation);
-        // Orientation contains: azimuth, pitch and roll - we'll use roll
         float roll = orientation[2];
         float pitch = orientation[1];
         float azimuth = orientation[0];
@@ -159,9 +161,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         int pitchDeg = (int) Math.round(Math.toDegrees(pitch));
         int azimuthDeg = (int) Math.round(Math.toDegrees(azimuth));
 
-        int power = rollDeg;
-
-        //Log.d(TAG, "deg=" + rollDeg + " power=" + power);
         if(pitchDeg > -15 && pitchDeg < 15)
         {
             now = System.currentTimeMillis();
@@ -169,7 +168,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
             {
                 if(rollDeg < -120 )
                 {
-                    tvWord.setText("CORRECT");
+                    tvWord.setText(correctText);
                     if(!soundAlreadyPlayed)
                     {
                         mpc.start();
@@ -184,7 +183,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                 else if(rollDeg > -35 )
                 {
 
-                    tvWord.setText("PASS");
+                    tvWord.setText(incorrectText);
                     if(!soundAlreadyPlayed)
                     {
                         mpi.start();

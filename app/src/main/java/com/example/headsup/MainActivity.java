@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -122,17 +124,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Resources res = getResources();
         ArrayList <CardContent> cards = new ArrayList<CardContent>();
 
-        cards.add(new CardContent("MOVIES", R.drawable.cinema, "13",
+        ArrayList<Drawable> drawables = getImageDrawables();
+        cards.add(new CardContent("GYM", drawables.get(3), "13",
                             "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.gym)))));
-        cards.add(new CardContent("ANIMALS", R.drawable.animal_icon,
+        cards.add(new CardContent("ANIMALS", drawables.get(0),
                 "13","12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.animals)))));
-        cards.add(new CardContent("SINGERS", R.drawable.micro, "13",
-                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.proffesions)))));
-        cards.add(new CardContent("CULTURES", R.drawable.globe, "12",
+        cards.add(new CardContent("CHAVON", drawables.get(2), "13",
+                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.professions)))));
+        cards.add(new CardContent("CULTURES", drawables.get(4), "12",
                 "12", "12",new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));
-        cards.add(new CardContent("ACTIONS", R.drawable.exercise, "12",
+        cards.add(new CardContent("ACTIONS", drawables.get(1), "12",
                 "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.actions)))));
-        cards.add(new CardContent("ACCENTS", R.drawable.voice, "12",
+        cards.add(new CardContent("ACCENTS", drawables.get(4), "12",
                 "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));
 
         registerCards(cards);
@@ -148,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             View cv = inf.inflate(R.layout.card, null, false);
 
             ImageView img = cv.findViewById(R.id.popcorn);
-            img.setImageResource(card.getCardImage());
+            img.setImageDrawable(card.getCardImage());
 
             TextView tv = cv.findViewById(R.id.desc);
             tv.setText(card.getCardText());
@@ -201,6 +204,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         editor.putString(id, state);
         editor.commit();
+    }
+
+    private ArrayList<Drawable> getImageDrawables()
+    {
+        ArrayList<Drawable> drawables = new ArrayList<Drawable>();
+
+        TypedArray a = this.getTheme().obtainStyledAttributes(
+                null,
+                R.styleable.appTheme,
+                0, 0);
+
+        try {
+            drawables.add(a.getDrawable(R.styleable.appTheme_animalRes));
+            drawables.add(a.getDrawable(R.styleable.appTheme_actionRes));
+            drawables.add(a.getDrawable(R.styleable.appTheme_professionRes));
+            drawables.add(a.getDrawable(R.styleable.appTheme_gymRes));
+            drawables.add(a.getDrawable(R.styleable.appTheme_countryRes));
+        } finally {
+            a.recycle();
+        }
+
+        return drawables;
     }
 
 

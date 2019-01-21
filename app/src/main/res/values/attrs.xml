@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="ds">
+    <declare-styleable name="appTheme">
         <attr name="backgroundColor" format="reference"/>
         <attr name="textColor" format="reference"/>
         <attr name="disabledBtnColor" format="reference" />
 
         <attr name="animalRes" format="reference"/>
+        <attr name="gymRes" format="reference"/>
+        <attr name="professionRes" format="reference"/>
+        <attr name="countryRes" format="reference"/>
+        <attr name="actionRes" format="reference"/>
+
         <attr name="settingsRes" format="reference"/>
         <attr name="helpRes" format="reference"/>
         <attr name="trophyRes" format="reference"/>
         <attr name="clockRes" format="reference"/>
+        <attr name="arrowRes" format="reference"/>
     </declare-styleable>
 </resources>

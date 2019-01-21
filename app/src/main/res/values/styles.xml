@@ -12,10 +12,16 @@
         <item name="android:windowLightStatusBar">true</item>
 
         <item name="animalRes">@drawable/animal_icon</item>
+        <item name="professionRes">@drawable/chef</item>
+        <item name="gymRes">@drawable/gym_icon</item>
+        <item name="countryRes">@drawable/globe</item>
+        <item name="actionRes">@drawable/action_icon</item>
+
         <item name="settingsRes">@drawable/settings</item>
         <item name="helpRes">@drawable/help</item>
         <item name="clockRes">@drawable/clock_icon</item>
         <item name="trophyRes">@drawable/trophy_icon</item>
+        <item name="arrowRes">@drawable/right_arrow_icon</item>
     </style>
 
 
@@ -32,10 +38,16 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
 
         <item name="animalRes">@drawable/animal_icon_dark</item>
+        <item name="professionRes">@drawable/chef_icon_dark</item>
+        <item name="gymRes">@drawable/gym_icon_dark</item>
+        <item name="countryRes">@drawable/globe_icon_dark</item>
+        <item name="actionRes">@drawable/action_icon_dark</item>
+
         <item name="settingsRes">@drawable/settings_icon_dark</item>
         <item name="helpRes">@drawable/help_icon_dark</item>
         <item name="clockRes">@drawable/clock_icon_dark</item>
         <item name="trophyRes">@drawable/trophy_icon_dark</item>
+        <item name="arrowRes">@drawable/right_arrow_icon_dark</item>
     </style>
 
 
