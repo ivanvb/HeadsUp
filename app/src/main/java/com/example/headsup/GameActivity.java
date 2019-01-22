@@ -26,7 +26,7 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements SensorEventListener {
 
-    int millisecondsLeft = 15000;
+    int millisecondsLeft;
     private Sensor accelerometer;
     private Sensor magnetometer;
     private float[] mGravity;
@@ -52,6 +52,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         updateTheme();
         setContentView(R.layout.activity_game);
 
+        setGameTime();
         correctText = getResources().getString( R.string.correct );
         incorrectText = getResources().getString( R.string.incorrect );
         words = getWords();
@@ -70,7 +71,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         tvWord = findViewById(R.id.tvWord);
         tvTimer =findViewById(R.id.time);
-        tvTimer.setText("testing");
+
         startTimer();
 
     }
@@ -81,7 +82,13 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         Bundle bundle = intent.getExtras();
         String theme = (String) bundle.get("theme");
         changeTheme(theme);
+    }
 
+    private void setGameTime()
+    {
+        intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        millisecondsLeft = Integer.parseInt((String)bundle.get("time")) * 1000;
     }
 
     private ArrayList<String> getWords()
@@ -299,7 +306,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
             @Override
             public void onFinish() {
-                Toast.makeText(GameActivity.this, "wawawa", Toast.LENGTH_SHORT).show();
+                //TO DO
+                //IMPLEMENT FRAGMENT POP UP WITH SCORES
             }
         }.start();
     }

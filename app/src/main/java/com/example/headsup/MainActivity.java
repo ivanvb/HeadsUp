@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Intent intent;
     SharedPreferences sharedPref ;
     SharedPreferences.Editor editor;
-    String theme, music, sound;
+    String theme, music, sound, time;
     String chosenCategory;
     ArrayList <String> chosenWordList;
     @Override
@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         theme = sharedPref.getString("theme", "light");
         music = sharedPref.getString("music", "on");
         sound = sharedPref.getString("sound", "on");
+        time = sharedPref.getString("time", "60");
+        time = "20";
     }
 
     private void updateTheme()
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("theme", theme);
             intent.putExtra("category", chosenCategory);
             intent.putExtra("wordList", chosenWordList);
+            intent.putExtra("time", time);
             startActivity(intent);
         }
     }
@@ -142,11 +145,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             TextView tv = cv.findViewById(R.id.desc);
             tv.setText(card.getCardText());
 
+            TextView tvTime = cv.findViewById(R.id.cardTime);
+            tvTime.setText(time);
+
             final String currentText = card.getCardText();
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     TextView sel = findViewById(R.id.select);
+
                     btn.setEnabled(true);
                     sel.setText(currentText);
                     chosenCategory = currentText;
@@ -154,12 +161,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
-            int n = R.drawable.chef;
             li.addView(cv);
         }
     }
-
-
 
     private ArrayList<Drawable> getImageDrawables()
     {
@@ -186,7 +190,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void openSettingsFragment()
     {
         FragmentManager fm = getSupportFragmentManager();
-        SettingsDialogFragment editNameDialogFragment = SettingsDialogFragment.newInstance(theme, music, sound);
+        SettingsDialogFragment editNameDialogFragment = SettingsDialogFragment.newInstance(theme, music, sound, time);
+
         editNameDialogFragment.show(fm, theme);
     }
 

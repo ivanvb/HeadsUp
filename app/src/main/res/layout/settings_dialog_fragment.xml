@@ -75,30 +75,71 @@
                 android:layout_below="@+id/tvMusic"
                 android:text="@string/sound_effects" />
 
-            <TextView
-                android:id="@+id/tvTime"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/layoutTime"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginTop="18dp"
-                android:textStyle="bold"
-                android:textColor="?attr/textColor"
                 android:layout_below="@+id/tvSoundEffects"
-                android:text="@string/time" />
-
-            <TextView
-                android:id="@+id/tvResetHighScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:layout_marginTop="18dp"
-                android:textStyle="bold"
-                android:textColor="?attr/textColor"
-                android:layout_below="@+id/tvTime"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/textColor"
+                    android:text="@string/time" />
+
+                <TextView
+                    android:id="@+id/tvTimeSetting"
+                    android:text="60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tvTime"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="0dp"
+                    android:layout_alignTop="@+id/tvTime"
+                    android:textColor="?attr/textColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/layoutResetHighscore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/reset_high_scores" />
+                android:layout_below="@+id/layoutTime"
+                android:layout_marginTop="18dp">
+
+                <TextView
+                    android:id="@+id/tvResetHighScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/textColor"
+                    android:text="@string/reset_high_scores" />
+
+                <ImageView
+                    android:id="@+id/imgCheck"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="?attr/checkRes"
+                    android:alpha="0"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBottom="@+id/tvResetHighScore"
+                    />
+            </RelativeLayout>
+
 
             <Switch
                 android:id="@+id/switchDarkMode"
@@ -127,27 +168,6 @@
                 android:layout_marginTop="18dp"
                 android:layout_alignBottom="@+id/tvSoundEffects"/>
 
-            <TextView
-                android:text="60"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tvTime"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="0dp"
-                android:layout_alignTop="@+id/tvTime"
-                android:textColor="?attr/textColor"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <ImageView
-                android:id="@+id/imgCheck"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="?attr/checkRes"
-                android:alpha="0"
-                android:layout_alignParentEnd="true"
-                android:layout_alignBottom="@+id/tvResetHighScore"
-                />
 
             <Button
                 android:id="@+id/btnApplyChanges"
@@ -161,7 +181,7 @@
                 android:textColor="?attr/backgroundColor"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="52dp"
-                android:layout_below="@+id/tvResetHighScore"/>
+                android:layout_below="@+id/layoutResetHighscore"/>
         </RelativeLayout>
 
 

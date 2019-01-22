@@ -1,5 +1,6 @@
 package com.example.headsup;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +24,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
     private EditText mEditText;
     SharedPreferences sharedPref ;
     SharedPreferences.Editor editor;
-    private static String fragTheme, fragMusic, fragSound;
+    private static String fragTheme, fragMusic, fragSound, fragTime;
     Switch switchTheme, switchMusic, switchSoundEffects;
     ImageView imgCheck;
     boolean resetHighscore = false;
@@ -33,7 +35,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         // Use `newInstance` instead as shown below
     }
 
-    public static SettingsDialogFragment newInstance(String theme, String music, String sound) {
+    public static SettingsDialogFragment newInstance(String theme, String music, String sound, String time) {
         SettingsDialogFragment frag = new SettingsDialogFragment();
         Bundle args = new Bundle();
         args.putString("theme", theme);
@@ -42,6 +44,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         fragTheme = theme;
         fragMusic = music;
         fragSound = sound;
+        fragTime = time;
         return frag;
     }
 
@@ -49,6 +52,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_fragment);
+
         return inflater.inflate(R.layout.settings_dialog_fragment, container);
     }
 
@@ -57,6 +61,9 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
         initializeSharedPreferences();
+
+        getDialog().getWindow()
+                .getAttributes().windowAnimations = R.style.MyCustomTheme;
 
         switchTheme = view.findViewById(R.id.switchDarkMode);
         setSwitchesState(fragTheme, "dark", switchTheme);
@@ -70,8 +77,14 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         setSwitchesState(fragSound, "on", switchSoundEffects);
         switchSoundEffects.setOnCheckedChangeListener(this);
 
-        TextView tv = view.findViewById(R.id.tvResetHighScore);
-        tv.setOnClickListener(this);
+        RelativeLayout rlResetHighscore = view.findViewById(R.id.layoutResetHighscore);
+        rlResetHighscore.setOnClickListener(this);
+
+        RelativeLayout rlTime = view.findViewById(R.id.layoutTime);
+        rlTime.setOnClickListener(this);
+
+        TextView tvTimeSetting = view.findViewById(R.id.tvTimeSetting);
+        tvTimeSetting.setText(fragTime);
 
         imgCheck = view.findViewById(R.id.imgCheck);
         Button btnApplyChanges = view.findViewById(R.id.btnApplyChanges);
@@ -89,7 +102,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
             ((MainActivity)getActivity()).restart();
             dismiss();
         }
-        else if(v.getId() == R.id.tvResetHighScore)
+        else if(v.getId() == R.id.layoutResetHighscore)
         {
             changeResetHighScoreState();
         }
@@ -147,6 +160,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         saveState("theme", fragTheme);
         saveState("music", fragMusic);
         saveState("sound", fragSound);
+        saveState("time", fragTime);
     }
 
     private void saveState(String id, String state)
