@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/edit_name"
+    android:layout_width="400dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:minWidth="175dp"
+    android:minHeight="225dp"
+    android:background="@drawable/round_fragment"
+    android:tag="timeSettings">
+
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="10dp"
+        android:layout_width="350dp"
+        android:layout_height="450dp"
+        android:id="@+id/popup"
+        android:background="?attr/backgroundColor">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/timeSettingsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_time_title"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="?attr/textColor"/>
+
+            <View
+                android:id="@+id/timeSettingsDivider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?attr/textColor"
+                android:layout_below="@+id/timeSettingsTitle"
+                android:layout_marginBottom="0dp"/>
+
+            <RelativeLayout
+                android:id="@+id/firstTimestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_below="@+id/timeSettingsTitle"
+                android:layout_marginTop="18dp">
+
+                <TextView
+                    android:id="@+id/tvFirstTimestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_marginTop="18dp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/textColor"
+                    android:text="20" />
+
+                <ImageView
+                    android:id="@+id/firstCheck"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="?attr/checkRes"
+                    android:alpha="0"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/tvFirstTimestamp"
+                    android:layout_marginStart="260dp"
+                    android:layout_alignBottom="@id/tvFirstTimestamp"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/secondTimestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_below="@+id/firstTimestamp"
+                android:layout_marginTop="18dp">
+
+                <TextView
+                    android:id="@+id/tvSecondTimestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_marginTop="18dp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/textColor"
+                    android:text="60" />
+
+                <ImageView
+                    android:id="@+id/secondCheck"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="?attr/checkRes"
+                    android:alpha="0"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/tvSecondTimestamp"
+                    android:layout_marginStart="260dp"
+                    android:layout_alignBottom="@id/tvSecondTimestamp"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/thirdTimestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_below="@+id/secondTimestamp"
+                android:layout_marginTop="18dp">
+
+                <TextView
+                    android:id="@+id/tvThirdTimestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_marginTop="18dp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/textColor"
+                    android:text="90" />
+
+                <ImageView
+                    android:id="@+id/thirdCheck"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="?attr/checkRes"
+                    android:alpha="0"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/tvThirdTimestamp"
+                    android:layout_marginStart="260dp"
+                    android:layout_alignBottom="@id/tvThirdTimestamp"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/fourthTimestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_below="@+id/thirdTimestamp"
+                android:layout_marginTop="18dp">
+
+                <TextView
+                    android:id="@+id/tvFourthTimestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_marginTop="18dp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/textColor"
+                    android:text="120" />
+
+                <ImageView
+                    android:id="@+id/fourthCheck"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="?attr/checkRes"
+                    android:alpha="0"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/tvFourthTimestamp"
+                    android:layout_marginStart="260dp"
+                    android:layout_alignBottom="@id/tvFourthTimestamp"
+                    />
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

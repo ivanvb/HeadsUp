@@ -31,7 +31,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, IFragmentListener{
 
     Button btn;
     ImageView settingsImg;
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String theme, music, sound, time;
     String chosenCategory;
     ArrayList <String> chosenWordList;
+    SettingsDialogFragment editNameDialogFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         music = sharedPref.getString("music", "on");
         sound = sharedPref.getString("sound", "on");
         time = sharedPref.getString("time", "60");
-        time = "20";
     }
 
     private void updateTheme()
@@ -190,10 +190,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void openSettingsFragment()
     {
         FragmentManager fm = getSupportFragmentManager();
-        SettingsDialogFragment editNameDialogFragment = SettingsDialogFragment.newInstance(theme, music, sound, time);
+        editNameDialogFragment = SettingsDialogFragment.newInstance(theme, music, sound, time);
 
         editNameDialogFragment.show(fm, theme);
     }
 
+
+    @Override
+    public void onInputSent(String input) {
+
+        editNameDialogFragment.receiveData(input);
+        if(input.contains("commit"))
+        {
+
+        }
+        else
+        {
+
+        }
+
+
+    }
 
 }

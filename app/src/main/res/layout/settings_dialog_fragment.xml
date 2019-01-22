@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/edit_name"
+    android:id="@+id/settingsFragment"
     android:layout_width="400dp"
     android:layout_height="400dp"
     android:layout_gravity="center"
     android:orientation="vertical"
     android:minWidth="175dp"
     android:minHeight="225dp"
-    android:background="@drawable/round_fragment">
+    android:background="@drawable/round_fragment"
+    android:tag="settings">
 
     <android.support.v7.widget.CardView
         app:cardCornerRadius="10dp"

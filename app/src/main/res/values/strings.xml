@@ -5,6 +5,7 @@
     <string name="play_button">PLAY</string>
     <string name="correct">CORRECT</string>
     <string name="incorrect">INCORRECT</string>
+    <string name="settings_time_title">TIME SETTINGS</string>
 
     <!--Settings related strings-->
     <string name="settings_title">SETTINGS</string>
@@ -208,6 +209,7 @@
     </string-array>
 
     <string-array name="gym">
+        <item name="arnold">Arnold Schwarzenegger</item>
         <item name="run">run</item>
         <item name="walk">walk</item>
         <item name="deadlift">deadlift</item>

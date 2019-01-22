@@ -2,10 +2,12 @@ package com.example.headsup;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +21,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SettingsDialogFragment extends DialogFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class SettingsDialogFragment extends DialogFragment implements View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener{
 
-    private EditText mEditText;
     SharedPreferences sharedPref ;
     SharedPreferences.Editor editor;
     private static String fragTheme, fragMusic, fragSound, fragTime;
+    private IFragmentListener listener;
     Switch switchTheme, switchMusic, switchSoundEffects;
     ImageView imgCheck;
     boolean resetHighscore = false;
+    TextView tvTimeSetting;
 
     public SettingsDialogFragment() {
         // Empty constructor is required for DialogFragment
@@ -83,7 +87,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         RelativeLayout rlTime = view.findViewById(R.id.layoutTime);
         rlTime.setOnClickListener(this);
 
-        TextView tvTimeSetting = view.findViewById(R.id.tvTimeSetting);
+        tvTimeSetting = view.findViewById(R.id.tvTimeSetting);
         tvTimeSetting.setText(fragTime);
 
         imgCheck = view.findViewById(R.id.imgCheck);
@@ -99,12 +103,17 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         if(v.getId() == R.id.btnApplyChanges)
         {
             saveChanges();
+            listener.onInputSent(fragTime + "commit");
             ((MainActivity)getActivity()).restart();
             dismiss();
         }
         else if(v.getId() == R.id.layoutResetHighscore)
         {
             changeResetHighScoreState();
+        }
+        else if(v.getId() == R.id.layoutTime)
+        {
+            openTimeSelectionFragment();
         }
     }
 
@@ -175,5 +184,29 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         imgCheck.setAlpha((resetHighscore)? 1f : 0f);
     }
 
-    
+    private void openTimeSelectionFragment()
+    {
+        FragmentManager fm = getFragmentManager();
+        TimeSelectSettingDialogFragment editNameDialogFragment = TimeSelectSettingDialogFragment.newInstance(fragTime);
+        editNameDialogFragment.show(fm, "time select");
+    }
+
+
+    public void receiveData(String data)
+    {
+        tvTimeSetting.setText(data);
+        fragTime = data;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        listener = (IFragmentListener)context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
 }

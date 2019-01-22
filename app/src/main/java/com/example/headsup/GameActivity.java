@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     TextView tvTimer;
     Context sensorContext;
     String correctText, incorrectText;
+    CountDownTimer timer, delayBeforeEndTimer;
 
     int STEP = 2000;
     int correct = 0, incorrect = 0;
@@ -204,7 +206,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                 }
                 else
                 {
-                    //mpc.start();
                     tvWord.setText(currentWord);
                     soundAlreadyPlayed = false;
                 }
@@ -212,7 +213,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
             else
             {
-                //mpc.start();
                 if(tvWord.getText().toString().equals("Please adjust your device"))
                 {
                     tvWord.setText(currentWord);
@@ -262,7 +262,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     private void startTimer()
     {
-        CountDownTimer timer = new CountDownTimer(millisecondsLeft, 1000) {
+        timer = new CountDownTimer(millisecondsLeft, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -294,11 +294,9 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-   
-
     public void waitNSeconds(long n)
     {
-        CountDownTimer t = new CountDownTimer(1500, 1000) {
+        delayBeforeEndTimer = new CountDownTimer(1500, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -310,5 +308,21 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                 //IMPLEMENT FRAGMENT POP UP WITH SCORES
             }
         }.start();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            timer.cancel();
+            if(delayBeforeEndTimer != null)
+            {
+                delayBeforeEndTimer.cancel();
+            }
+
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
