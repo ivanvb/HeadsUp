@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/edit_name"
+    android:layout_width="400dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:minWidth="175dp"
+    android:minHeight="225dp"
+    android:background="@drawable/round_fragment"
+    android:tag="timeSettings">
+
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="10dp"
+        android:layout_width="350dp"
+        android:layout_height="450dp"
+        android:id="@+id/popup"
+        android:background="?attr/backgroundColor">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/resultsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RESULTS"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="?attr/textColor"/>
+
+            <View
+                android:id="@+id/resultsDivider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?attr/textColor"
+                android:layout_below="@+id/resultsTitle"
+                android:layout_marginBottom="0dp"/>
+
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_below="@+id/resultsDivider"
+                android:layout_width="match_parent"
+                android:background="?attr/textColor"
+                android:layout_height="200dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/correctTitle"
+                        android:textColor="?attr/backgroundColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="@string/correct"
+                        android:layout_toLeftOf="@+id/wordsDivider"
+                        android:textSize="28sp"/>
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/incorrectTile"
+                        android:textColor="?attr/backgroundColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="@string/passed"
+                        android:layout_toRightOf="@+id/wordsDivider"
+                        android:textSize="28sp"/>
+
+                    <TextView
+                        android:layout_below="@id/correctTitle"
+                        android:id="@+id/tvCorrectWords"
+                        android:textColor="?attr/backgroundColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lorem_ipsum"
+                        android:layout_toLeftOf="@+id/wordsDivider"
+                        android:layout_marginRight="2dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <View
+                        android:id="@+id/wordsDivider"
+                        android:layout_width="12dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/textColor"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="0dp" />
+
+                    <TextView
+                        android:textSize="16sp"
+                        android:id="@+id/tvIncorrectWords"
+                        android:layout_below="@+id/incorrectTile"
+                        android:gravity="center"
+                        android:textColor="?attr/backgroundColor"
+                        android:layout_marginLeft="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lorem_ipsum"
+                        android:layout_toRightOf="@+id/wordsDivider"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+
+
+            </ScrollView>
+
+            <Button
+                android:id="@+id/btnPlayAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner_button"
+                android:textColor="?attr/backgroundColor"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:text="PLAY AGAIN"
+                android:padding="15dp"
+                android:layout_below="@+id/scrollView"/>
+
+
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

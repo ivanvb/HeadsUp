@@ -6,6 +6,7 @@
     <string name="correct">CORRECT</string>
     <string name="incorrect">INCORRECT</string>
     <string name="settings_time_title">TIME SETTINGS</string>
+    <string name="passed">PASSED</string>
 
     <!--Settings related strings-->
     <string name="settings_title">SETTINGS</string>
@@ -284,5 +285,13 @@
         <item name="Medical Technologist">Medical Technologist</item>
         <item name="Programmer">Programmer</item>
     </string-array>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia dictum dapibus. Nunc quam leo, pulvinar eget aliquam non, aliquam sed ipsum. Curabitur ut lacus in massa sagittis vulputate ac quis massa. Mauris gravida eros a nulla porta, vitae molestie nisi porttitor. Nam maximus velit in libero laoreet, quis malesuada velit aliquet. Mauris luctus eleifend mauris, vitae commodo quam vestibulum in. Ut eget mauris id erat ultrices sodales lacinia vitae nisi. Morbi congue et mauris id blandit. Phasellus ullamcorper felis ex, nec sodales elit convallis sodales.
+
+Nunc tristique ipsum a magna vestibulum laoreet. Aliquam id nunc at orci auctor consectetur ac nec justo. Vestibulum eu blandit sapien. Proin aliquet dignissim ligula eu blandit. Maecenas tellus lectus, luctus sit amet diam non, vehicula ornare massa. Mauris mi nisl, interdum et elit eget, commodo sodales augue. Praesent quis quam vitae turpis tristique scelerisque. Phasellus at dictum felis, non consectetur nisi.
+
+Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse commodo lacinia facilisis. Nunc interdum nunc eu libero aliquam sodales ut nec nibh. Sed ac tellus fermentum, dictum orci at, cursus quam. Maecenas vitae porta mauris. Fusce eleifend dui vel sapien aliquam, id maximus urna pretium. Aliquam rutrum ligula id mi dignissim sagittis. Phasellus a lectus efficitur, scelerisque massa in, ultrices est. Sed dui arcu, accumsan sit amet magna a, feugiat facilisis risus. In at nisl in lacus sagittis semper at id enim. Nunc facilisis eget metus eu eleifend. Nulla eget leo congue sem iaculis convallis. Aliquam dictum eu ante id rhoncus. Suspendisse odio eros, pretium sit amet nisl id, scelerisque interdum mauris.
+    </string>
 
 </resources>

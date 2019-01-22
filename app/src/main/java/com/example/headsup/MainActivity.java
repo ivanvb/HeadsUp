@@ -191,7 +191,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         FragmentManager fm = getSupportFragmentManager();
         editNameDialogFragment = SettingsDialogFragment.newInstance(theme, music, sound, time);
-
         editNameDialogFragment.show(fm, theme);
     }
 
@@ -200,15 +199,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onInputSent(String input) {
 
         editNameDialogFragment.receiveData(input);
-        if(input.contains("commit"))
-        {
-
-        }
-        else
-        {
-
-        }
-
 
     }
 

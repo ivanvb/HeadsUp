@@ -12,6 +12,7 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     Context sensorContext;
     String correctText, incorrectText;
     CountDownTimer timer, delayBeforeEndTimer;
+    ResultsDialogFragment resultsDialogFragment;
+    ArrayList<String> correctWords, incorrectWords;
 
     int STEP = 2000;
     int correct = 0, incorrect = 0;
@@ -55,6 +58,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_game);
 
         setGameTime();
+        correctWords = new ArrayList<>();
+        incorrectWords = new ArrayList<>();
         correctText = getResources().getString( R.string.correct );
         incorrectText = getResources().getString( R.string.incorrect );
         words = getWords();
@@ -182,6 +187,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                     {
                         mpc.start();
                         soundAlreadyPlayed = true;
+                        correctWords.add(currentWord);
                         changeWord();
                         correct++;
                     }
@@ -197,6 +203,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                     {
                         mpi.start();
                         soundAlreadyPlayed = true;
+                        incorrectWords.add(currentWord);
                         changeWord();
                         incorrect++;
                     }
@@ -304,8 +311,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
             @Override
             public void onFinish() {
-                //TO DO
-                //IMPLEMENT FRAGMENT POP UP WITH SCORES
+                openResultsFragment();
             }
         }.start();
     }
@@ -324,5 +330,12 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void openResultsFragment()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        resultsDialogFragment = ResultsDialogFragment.newInstance(correctWords, incorrectWords);
+        resultsDialogFragment.show(fm, "Result");
     }
 }
