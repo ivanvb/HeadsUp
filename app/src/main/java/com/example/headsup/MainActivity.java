@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Intent intent;
     SharedPreferences sharedPref ;
     SharedPreferences.Editor editor;
-    String theme;
+    String theme, music, sound;
     String chosenCategory;
     ArrayList <String> chosenWordList;
     @Override
@@ -59,9 +60,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     private void initializeSharedPreferences()
     {
-        sharedPref = getSharedPreferences("wawawa", Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         theme = sharedPref.getString("theme", "light");
+        music = sharedPref.getString("music", "on");
+        sound = sharedPref.getString("sound", "on");
     }
 
     private void updateTheme()
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(v.getId() == R.id.settings)
         {
-            showSettings();
+            openSettingsFragment();
         }
         else if(v.getId() == R.id.btnPlay)
         {
@@ -93,25 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void changeTheme()
-    {
-        btn.setEnabled(false);
-        if(theme.equals("dark")){
 
-            editor.putString("theme", "light");
-            editor.commit();
-            restart();
-        }
-        else
-        {
-            editor.putString("theme", "dark");
-            editor.commit();
-            restart();
-        }
-
-    }
-
-    private void restart()
+    public void restart()
     {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
@@ -173,38 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void showSettings()
-    {
-        dialog = new Dialog(this);
 
-        dialog.setContentView(R.layout.settings_popup);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-
-
-        final Switch s = dialog.findViewById(R.id.switchDarkMode);
-        String state = sharedPref.getString(Integer.toString(s.getId()), "false");
-        if(state.equals("true"))
-        {
-            s.setChecked(true);
-        }
-
-        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dialog.dismiss();
-                saveState(Integer.toString(s.getId()), Boolean.toString(s.isChecked()));
-                changeTheme();
-            }
-        });
-
-    }
-
-    private void saveState(String id, String state)
-    {
-        editor.putString(id, state);
-        editor.commit();
-    }
 
     private ArrayList<Drawable> getImageDrawables()
     {
@@ -226,6 +181,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return drawables;
+    }
+
+    private void openSettingsFragment()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        SettingsDialogFragment editNameDialogFragment = SettingsDialogFragment.newInstance(theme, music, sound);
+        editNameDialogFragment.show(fm, theme);
     }
 
 

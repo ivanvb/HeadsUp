@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/edit_name"
+    android:layout_width="400dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:minWidth="175dp"
+    android:minHeight="225dp"
+    android:background="@drawable/round_fragment">
+
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="10dp"
+        android:layout_width="350dp"
+        android:layout_height="450dp"
+        android:id="@+id/popup"
+        android:background="?attr/backgroundColor">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/settingsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_title"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="?attr/textColor"/>
+
+            <View
+                android:id="@+id/settingsDivider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?attr/textColor"
+                android:layout_below="@+id/settingsTitle"
+                android:layout_marginBottom="0dp"/>
+
+            <TextView
+                android:id="@+id/tvDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="18dp"
+                android:textStyle="bold"
+                android:textColor="?attr/textColor"
+                android:layout_below="@+id/settingsTitle"
+                android:text="@string/dark_mode" />
+
+            <TextView
+                android:id="@+id/tvMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="18dp"
+                android:textStyle="bold"
+                android:textColor="?attr/textColor"
+                android:layout_below="@+id/tvDarkMode"
+                android:text="@string/music" />
+
+            <TextView
+                android:id="@+id/tvSoundEffects"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="18dp"
+                android:textStyle="bold"
+                android:textColor="?attr/textColor"
+                android:layout_below="@+id/tvMusic"
+                android:text="@string/sound_effects" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="18dp"
+                android:textStyle="bold"
+                android:textColor="?attr/textColor"
+                android:layout_below="@+id/tvSoundEffects"
+                android:text="@string/time" />
+
+            <TextView
+                android:id="@+id/tvResetHighScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="18dp"
+                android:textStyle="bold"
+                android:textColor="?attr/textColor"
+                android:layout_below="@+id/tvTime"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/reset_high_scores" />
+
+            <Switch
+                android:id="@+id/switchDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settingsTitle"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="18dp"
+                android:layout_alignBottom="@+id/tvDarkMode"/>
+
+            <Switch
+                android:id="@+id/switchMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switchDarkMode"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="18dp"
+                android:layout_alignBottom="@+id/tvMusic"/>
+
+            <Switch
+                android:id="@+id/switchSoundEffects"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switchMusic"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="18dp"
+                android:layout_alignBottom="@+id/tvSoundEffects"/>
+
+            <TextView
+                android:text="60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvTime"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:layout_alignTop="@+id/tvTime"
+                android:textColor="?attr/textColor"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/imgCheck"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="?attr/checkRes"
+                android:alpha="0"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/tvResetHighScore"
+                />
+
+            <Button
+                android:id="@+id/btnApplyChanges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="APPLY CHANGES"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:padding="15dp"
+                android:background="@drawable/rounded_corner_button"
+                android:textColor="?attr/backgroundColor"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="52dp"
+                android:layout_below="@+id/tvResetHighScore"/>
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

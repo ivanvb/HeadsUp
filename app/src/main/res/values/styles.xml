@@ -22,6 +22,7 @@
         <item name="clockRes">@drawable/clock_icon</item>
         <item name="trophyRes">@drawable/trophy_icon</item>
         <item name="arrowRes">@drawable/right_arrow_icon</item>
+        <item name="checkRes">@drawable/check_icon</item>
     </style>
 
 
@@ -48,6 +49,7 @@
         <item name="clockRes">@drawable/clock_icon_dark</item>
         <item name="trophyRes">@drawable/trophy_icon_dark</item>
         <item name="arrowRes">@drawable/right_arrow_icon_dark</item>
+        <item name="checkRes">@drawable/check_icon_dark</item>
     </style>
 
 

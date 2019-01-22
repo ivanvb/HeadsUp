@@ -17,5 +17,6 @@
         <attr name="trophyRes" format="reference"/>
         <attr name="clockRes" format="reference"/>
         <attr name="arrowRes" format="reference"/>
+        <attr name="checkRes" format="reference"/>
     </declare-styleable>
 </resources>
