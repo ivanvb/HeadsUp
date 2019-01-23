@@ -178,7 +178,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         if(pitchDeg > -15 && pitchDeg < 15)
         {
             now = System.currentTimeMillis();
-            if(now >= next )
+            if(now >= next && gameTime)
             {
                 if(rollDeg < -120 )
                 {
@@ -224,7 +224,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                 {
                     tvWord.setText(currentWord);
                 }
-                if(rollDeg <= -35 && rollDeg >= -120)
+                if(rollDeg <= -35 && rollDeg >= -120 && gameTime)
                 {
                     soundAlreadyPlayed = false;
                     tvWord.setText(currentWord);
@@ -279,8 +279,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onFinish() {
                 gameTime = false;
+                tvTimer.setText("");
                 tvWord.setText("TIME'S UP");
-                gameTime = false;
                 waitNSeconds(3);
             }
         }.start();
