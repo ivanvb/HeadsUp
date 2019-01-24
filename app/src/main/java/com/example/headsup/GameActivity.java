@@ -46,7 +46,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     String correctText, incorrectText;
     CountDownTimer timer, delayBeforeEndTimer;
     ResultsDialogFragment resultsDialogFragment;
-    ArrayList<String> correctWords, incorrectWords;
+    ArrayList<String> correctWords, incorrectWords, initialWordlist;
+    String initialTheme, initialTimer, category;
 
     int STEP = 2000;
     int correct = 0, incorrect = 0;
@@ -56,8 +57,9 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         updateTheme();
         setContentView(R.layout.activity_game);
-
         setGameTime();
+        millisecondsLeft = 2000;
+
         correctWords = new ArrayList<>();
         incorrectWords = new ArrayList<>();
         correctText = getResources().getString( R.string.correct );
@@ -88,6 +90,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         intent = getIntent();
         Bundle bundle = intent.getExtras();
         String theme = (String) bundle.get("theme");
+        initialTheme = theme;
         changeTheme(theme);
     }
 
@@ -95,7 +98,9 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     {
         intent = getIntent();
         Bundle bundle = intent.getExtras();
-        millisecondsLeft = Integer.parseInt((String)bundle.get("time")) * 1000;
+        String time = (String)bundle.get("time");
+        initialTimer = time;
+        millisecondsLeft = Integer.parseInt(time) * 1000;
     }
 
     private ArrayList<String> getWords()
@@ -103,6 +108,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         intent = getIntent();
         Bundle bundle = intent.getExtras();
         ArrayList<String> words = (ArrayList<String>) bundle.get("wordList");
+        initialWordlist = words;
         return words;
     }
 
@@ -337,5 +343,17 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         FragmentManager fm = getSupportFragmentManager();
         resultsDialogFragment = ResultsDialogFragment.newInstance(correctWords, incorrectWords);
         resultsDialogFragment.show(fm, "Result");
+    }
+
+    public void restart()
+    {
+        Intent i = new Intent(getApplicationContext(), GameActivity.class);
+        i.putExtra("theme", initialTheme);
+        i.putExtra("category", "maroon5");
+        i.putExtra("wordList", initialWordlist);
+        i.putExtra("time", initialTimer);
+        startActivity(i);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
     }
 }

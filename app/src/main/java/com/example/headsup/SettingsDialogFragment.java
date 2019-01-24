@@ -66,8 +66,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         // Get field from view
         initializeSharedPreferences();
 
-        getDialog().getWindow()
-                .getAttributes().windowAnimations = R.style.MyCustomTheme;
+
 
         switchTheme = view.findViewById(R.id.switchDarkMode);
         setSwitchesState(fragTheme, "dark", switchTheme);
