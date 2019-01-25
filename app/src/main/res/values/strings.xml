@@ -286,6 +286,15 @@
         <item name="Programmer">Programmer</item>
     </string-array>
 
+    <string-array name="categories">
+        <item name ="GYM">GYM</item>
+        <item name ="ANIMALS">ANIMALS</item>
+        <item name ="PROFESSIONS">PROFESSIONS</item>
+        <item name="CULTURS">CULTURES</item>
+        <item name="ACTIONS">ACTIONS</item>
+        <item name="ACCENTS">ACCENTS</item>
+    </string-array>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia dictum dapibus. Nunc quam leo, pulvinar eget aliquam non, aliquam sed ipsum. Curabitur ut lacus in massa sagittis vulputate ac quis massa. Mauris gravida eros a nulla porta, vitae molestie nisi porttitor. Nam maximus velit in libero laoreet, quis malesuada velit aliquet. Mauris luctus eleifend mauris, vitae commodo quam vestibulum in. Ut eget mauris id erat ultrices sodales lacinia vitae nisi. Morbi congue et mauris id blandit. Phasellus ullamcorper felis ex, nec sodales elit convallis sodales.
 

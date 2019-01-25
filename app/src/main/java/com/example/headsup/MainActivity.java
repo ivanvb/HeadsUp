@@ -1,41 +1,34 @@
 package com.example.headsup;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Attr;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, IFragmentListener{
 
     Button btn;
     ImageView settingsImg;
-    Dialog dialog;
     Intent intent;
     SharedPreferences sharedPref ;
     SharedPreferences.Editor editor;
@@ -43,12 +36,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String chosenCategory;
     ArrayList <String> chosenWordList;
     SettingsDialogFragment editNameDialogFragment;
+    Map<String, String[]> scoresMap;
+    ArrayList<String> categories;
+    ArrayList[] wordLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeSharedPreferences();
+
+
+        categories = new ArrayList<>(Arrays.asList((getResources().getStringArray(R.array.categories))));
+        getScores();
         updateTheme();
+        setWordListIds();
+        getScores();
+       // saveScores();
         setContentView(R.layout.activity_main);
 
         btn = findViewById(R.id.btnPlay);
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getApplicationContext().setTheme(R.style.AppTheme);
         }
     }
+
     @Override
     public void onClick(View v) {
 
@@ -115,18 +119,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ArrayList <CardContent> cards = new ArrayList<CardContent>();
 
         ArrayList<Drawable> drawables = getImageDrawables();
-        cards.add(new CardContent("GYM", drawables.get(3), "13",
-                            "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.gym)))));
+        String currentCategory = "ANIMALS";
+
+        for(int i = 0; i < categories.size(); i++)
+        {
+            currentCategory = categories.get(i);
+            cards.add(new CardContent(currentCategory,
+                                        drawables.get(i),
+                                        scoresMap.get(currentCategory)[0],
+                                        scoresMap.get(currentCategory)[1],
+                                        scoresMap.get(currentCategory)[2],
+                                        wordLists[i]));
+
+        }
+
+        /*cards.add(new CardContent(currentCategory, drawables.get(i), scoresMap.get(currentCategory)[0],
+                scoresMap.get(currentCategory)[2], scoresMap.get("GYM")[2], wordLists[0]));
+
+        cards.add(new CardContent(currentCategory, drawables.get(3), scoresMap.get(currentCategory)[0],
+                scoresMap.get("GYM")[1], scoresMap.get("GYM")[2], wordLists[0]));
         cards.add(new CardContent("ANIMALS", drawables.get(0),
                 "13","12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.animals)))));
         cards.add(new CardContent("CHAVON", drawables.get(2), "13",
-                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.professions)))));
+                "12", "120", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.professions)))));
         cards.add(new CardContent("CULTURES", drawables.get(4), "12",
-                "12", "12",new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));
+                "12", "120",new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));
         cards.add(new CardContent("ACTIONS", drawables.get(1), "12",
-                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.actions)))));
+                "12", "1200", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.actions)))));
         cards.add(new CardContent("ACCENTS", drawables.get(4), "12",
-                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));
+                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));*/
 
         registerCards(cards);
     }
@@ -149,6 +170,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             TextView tvTime = cv.findViewById(R.id.cardTime);
             tvTime.setText(time);
 
+            TextView tvScore = cv.findViewById(R.id.cardScore);
+            if(time.equals("60"))
+            {
+                tvScore.setText(card.getScore60());
+            }
+            else if(time.equals("90"))
+            {
+                tvScore.setText(card.getScore90());
+            }
+            else if(time.equals("120"))
+            {
+                tvScore.setText(card.getScore120());
+            }
+            else
+            {
+                tvScore.setText("0");
+            }
+
             final String currentText = card.getCardText();
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -159,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     sel.setText(currentText);
                     chosenCategory = currentText;
                     chosenWordList = card.getWords();
+
                 }
             });
 
@@ -176,10 +216,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 0, 0);
 
         try {
-            drawables.add(a.getDrawable(R.styleable.appTheme_animalRes));
-            drawables.add(a.getDrawable(R.styleable.appTheme_actionRes));
-            drawables.add(a.getDrawable(R.styleable.appTheme_professionRes));
             drawables.add(a.getDrawable(R.styleable.appTheme_gymRes));
+            drawables.add(a.getDrawable(R.styleable.appTheme_animalRes));
+            drawables.add(a.getDrawable(R.styleable.appTheme_professionRes));
+            drawables.add(a.getDrawable(R.styleable.appTheme_countryRes));
+            drawables.add(a.getDrawable(R.styleable.appTheme_actionRes));
             drawables.add(a.getDrawable(R.styleable.appTheme_countryRes));
         } finally {
             a.recycle();
@@ -195,6 +236,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editNameDialogFragment.show(fm, theme);
     }
 
+    private void getScores()
+    {
+        scoresMap = new HashMap<>();
+        for(String category : categories)
+        {
+            String[] s = getScoreArray(category);
+            scoresMap.put(category, s);
+        }
+    }
+
 
     @Override
     public void onInputSent(String input) {
@@ -202,5 +253,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editNameDialogFragment.receiveData(input);
 
     }
+
+    private String[] getScoreArray(String category)
+    {
+        String[] scores;
+        Gson gson = new Gson();
+        String json = sharedPref.getString(category, null);
+        if(json == null)
+        {
+            scores = new String[]{"0", "0", "0"};
+        }
+        else
+        {
+            Type type = new TypeToken<String[]>() {}.getType();
+            scores = gson.fromJson(json, type);
+        }
+
+        return scores;
+    }
+
+    private void saveScores()
+    {
+        Gson gson = new Gson();
+        String json = gson.toJson(new String[]{"0", "0", "0"});
+        editor.putString("ANIMALS", json);
+        editor.commit();
+
+    }
+
+    private void setWordListIds()
+    {
+        wordLists = new ArrayList[categories.size()];
+        wordLists[0] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gym)));
+        wordLists[1] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.animals)));
+        wordLists[2] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.professions)));
+        wordLists[3] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.countries)));
+        wordLists[4] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.actions)));
+        wordLists[5] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.countries)));
+    }
+
+
 
 }

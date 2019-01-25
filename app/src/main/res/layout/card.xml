@@ -39,8 +39,8 @@
                 />
 
             <TextView
-                android:id="@+id/score"
-                android:layout_width="25dp"
+                android:id="@+id/cardScore"
+                android:layout_width="wrap_content"
                 android:layout_height="18dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="4dp"
