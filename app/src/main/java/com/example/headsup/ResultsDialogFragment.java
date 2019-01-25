@@ -56,6 +56,7 @@ public class ResultsDialogFragment extends DialogFragment implements View.OnClic
         Button btn = view.findViewById(R.id.btnPlayAgain);
         btn.setOnClickListener(this);
 
+        setScore();
         publishResults();
 
     }
@@ -92,6 +93,12 @@ public class ResultsDialogFragment extends DialogFragment implements View.OnClic
 
         tvCorrect.setText(correct);
         tvIncorrect.setText(incorrect);
+    }
+
+    private void setScore()
+    {
+        TextView scoreTv = getView().findViewById(R.id.score);
+        scoreTv.setText("Score: " + fragCorrectWords.size());
     }
 
     @Override

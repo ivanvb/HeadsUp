@@ -58,7 +58,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         updateTheme();
         setContentView(R.layout.activity_game);
         setGameTime();
-        millisecondsLeft = 2000;
+        //millisecondsLeft = 12000;
 
         correctWords = new ArrayList<>();
         incorrectWords = new ArrayList<>();

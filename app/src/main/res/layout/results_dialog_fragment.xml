@@ -114,6 +114,16 @@
 
             </ScrollView>
 
+            <TextView
+                android:id="@+id/score"
+                android:layout_marginTop="5dp"
+                android:textColor="?attr/textColor"
+                android:layout_width="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/scrollView"/>
+
             <Button
                 android:id="@+id/btnPlayAgain"
                 android:layout_width="wrap_content"
@@ -126,7 +136,7 @@
                 android:textSize="24sp"
                 android:text="PLAY AGAIN"
                 android:padding="15dp"
-                android:layout_below="@+id/scrollView"/>
+                android:layout_below="@+id/score"/>
 
 
         </RelativeLayout>
