@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String chosenCategory;
     ArrayList <String> chosenWordList;
     SettingsDialogFragment editNameDialogFragment;
-    Map<String, String[]> scoresMap;
+    HashMap<String, String[]> scoresMap;
     ArrayList<String> categories;
     ArrayList[] wordLists;
 
@@ -244,6 +244,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String[] s = getScoreArray(category);
             scoresMap.put(category, s);
         }
+
+        GameScoresManager.setScores(scoresMap);
+        GameScoresManager.setSharedPreferences(sharedPref, editor);
     }
 
 
@@ -272,14 +275,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return scores;
     }
 
-    private void saveScores()
-    {
-        Gson gson = new Gson();
-        String json = gson.toJson(new String[]{"0", "0", "0"});
-        editor.putString("ANIMALS", json);
-        editor.commit();
-
-    }
 
     private void setWordListIds()
     {
@@ -291,6 +286,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wordLists[4] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.actions)));
         wordLists[5] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.countries)));
     }
+
+
 
 
 
