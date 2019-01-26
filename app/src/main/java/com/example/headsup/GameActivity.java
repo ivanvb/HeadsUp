@@ -37,19 +37,19 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     ArrayList<String> words;
     long now, next;
     MediaPlayer mpc, mpi;
-    boolean soundAlreadyPlayed, gameTime = true;
+    boolean soundAlreadyPlayed, gameTime;
     SensorManager sensorManager;
     String currentWord;
     TextView tvWord;
     TextView tvTimer;
     Context sensorContext;
     String correctText, incorrectText;
-    CountDownTimer timer, delayBeforeEndTimer;
+    CountDownTimer preparationTimer, timer, delayBeforeEndTimer;
     ResultsDialogFragment resultsDialogFragment;
     ArrayList<String> correctWords, incorrectWords, initialWordlist;
     String initialTheme, initialTimer, category;
 
-    int STEP = 2000;
+    int STEP = 2000, PREPARATION_TIME_IN_MILLIS = 5000;
     int correct = 0, incorrect = 0;
 
     @Override
@@ -79,10 +79,29 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         tvWord = findViewById(R.id.tvWord);
-        tvTimer =findViewById(R.id.time);
+        tvTimer = findViewById(R.id.time);
 
-        startTimer();
+        startPreparationTimer();
 
+    }
+
+    private void startPreparationTimer()
+    {
+        gameTime = false;
+        preparationTimer = new CountDownTimer(PREPARATION_TIME_IN_MILLIS, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                tvWord.setText(Long.toString(millisUntilFinished/1000 + 1));
+            }
+
+            @Override
+            public void onFinish() {
+                gameTime = true;
+                registerSensorListeners();
+                tvWord.setText(currentWord);
+                startTimer();
+            }
+        }.start();
     }
 
     private void updateTheme()
@@ -127,6 +146,11 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
+        registerSensorListeners();
+    }
+
+    private void registerSensorListeners()
+    {
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
         sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
     }
