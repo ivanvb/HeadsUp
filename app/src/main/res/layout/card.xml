@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card"
         android:layout_width="125dp"
         android:layout_height="175dp"
         app:cardElevation="6dp"
         android:layout_margin="30dp"
         android:padding="10dp"
         app:cardCornerRadius="10dp"
-        android:id="@+id/card"
         android:foreground="?android:attr/selectableItemBackground"
         android:focusable="true"
         app:cardBackgroundColor="?attr/backgroundColor">
@@ -21,20 +21,20 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/cardImage"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_centerInParent="true"
-
-                android:id="@+id/popcorn"/>
+                />
 
             <ImageView
+                android:id="@+id/trophyIcon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:src="?attr/trophyRes"
-                android:id="@+id/trophy"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 />
 
@@ -44,31 +44,29 @@
                 android:layout_height="18dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="4dp"
-                android:layout_toEndOf="@+id/trophy"
-                android:text="12"
+                android:layout_toEndOf="@+id/trophyIcon"
                 android:textColor="?attr/textColor"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/clockIcon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:id="@+id/clock"
                 android:src="?attr/clockRes"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"/>
 
             <TextView
+                android:id="@+id/cardTime"
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
-                android:id="@+id/cardTime"
-                android:text="60"
                 android:textColor="?attr/textColor"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_toStartOf="@+id/clock"
+                android:layout_toStartOf="@+id/clockIcon"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"/>
 
@@ -78,7 +76,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center_horizontal"
                 android:paddingStart="10dp"
-                android:layout_below="@+id/popcorn"
+                android:layout_below="@+id/cardImage"
                 android:id="@+id/desc"
                 android:textStyle="bold"
                 android:textSize="14sp"

@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -24,20 +26,24 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, IFragmentListener{
 
+    //Components
     Button btn;
     ImageView settingsImg;
     Intent intent;
     SharedPreferences sharedPref ;
     SharedPreferences.Editor editor;
-    String theme, music, sound, time;
-    String chosenCategory;
+
+    //Variables
+    String theme, music, sound, time, chosenCategory;
     ArrayList <String> chosenWordList;
     SettingsDialogFragment editNameDialogFragment;
     HashMap<String, String[]> scoresMap;
     ArrayList<String> categories;
     ArrayList[] wordLists;
     HashMap<String, Integer> timeMap;
-    int selectedTimeframe;
+    int selectedTimeFrame;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +52,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         timeMap = new HashMap<String, Integer>()
         {
             {
-                put("60", 0);
-                put("90", 1);
-                put("120", 2);
+                put(GameParameters.TIMESTAMPS[0], 0);
+                put(GameParameters.TIMESTAMPS[1], 1);
+                put(GameParameters.TIMESTAMPS[2], 2);
             }
 
         };
 
         categories = new ArrayList<>(Arrays.asList((getResources().getStringArray(R.array.categories))));
-        getScores();
+        getSavedScoresFromMemory();
         updateTheme();
         setWordListIds();
-        getScores();
+        getSavedScoresFromMemory();
 
         setContentView(R.layout.activity_main);
 
@@ -65,24 +71,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn.setOnClickListener(this);
         btn.setEnabled(false);
 
-        setCards();
+        initializeCards();
 
         settingsImg = findViewById(R.id.settings);
         settingsImg.setOnClickListener(this);
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(GameScoresManager.isScoreChanged())
+        {
+            restart();
+        }
+    }
+
     private void initializeSharedPreferences()
     {
         sharedPref = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
-        theme = sharedPref.getString("theme", "light");
-        music = sharedPref.getString("music", "on");
-        sound = sharedPref.getString("sound", "on");
-        time = sharedPref.getString("time", "60");
+        theme = sharedPref.getString("theme", GameParameters.DEFAULT_THEME);
+        music = sharedPref.getString("music", GameParameters.DEFAULT_MUSIC);
+        sound = sharedPref.getString("sound", GameParameters.DEFAULT_SOUND);
+        time = sharedPref.getString("time", GameParameters.DEFAULT_TIME);
     }
 
     private void updateTheme()
     {
-        if(theme.equals("dark"))
+        if(theme.equals(GameParameters.DARK_THEME))
         {
             getApplicationContext().setTheme(R.style.AppTheme_DarkMode);
             setTheme(R.style.AppTheme_DarkMode);
@@ -94,23 +110,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
 
-        if(v.getId() == R.id.settings)
+        Toast.makeText(this, Integer.toString(view.getId()), Toast.LENGTH_SHORT).show();
+        if(view.getId() == R.id.settings)
         {
             openSettingsFragment();
         }
-        else if(v.getId() == R.id.btnPlay)
+        else if(view.getId() == R.id.btnPlay)
         {
-            intent = new Intent(this, GameActivity.class);
-            intent.putExtra("theme", theme);
-            intent.putExtra("category", chosenCategory);
-            intent.putExtra("wordList", chosenWordList);
-            intent.putExtra("time", time);
-            GameScoresManager.setHighscoreToBeat(Integer.parseInt(scoresMap.get(chosenCategory)[selectedTimeframe]));
-            GameScoresManager.setWorkingCategory(chosenCategory);
-            GameScoresManager.setWorkingTime(time);
-            startActivity(intent);
+            launchGameActivity();
+        }
+        else if(view.getId() == R.id.card)
+        {
+            Toast.makeText(this, "WAWAWA", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -123,13 +136,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         finish();
     }
 
-    private void setCards()
+    private void initializeCards()
     {
-        Resources res = getResources();
         ArrayList <CardContent> cards = new ArrayList<CardContent>();
 
         ArrayList<Drawable> drawables = getImageDrawables();
-        String currentCategory = "ANIMALS";
+        String currentCategory;
 
         for(int i = 0; i < categories.size(); i++)
         {
@@ -142,23 +154,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         wordLists[i]));
 
         }
-
-        /*cards.add(new CardContent(currentCategory, drawables.get(i), scoresMap.get(currentCategory)[0],
-                scoresMap.get(currentCategory)[2], scoresMap.get("GYM")[2], wordLists[0]));
-
-        cards.add(new CardContent(currentCategory, drawables.get(3), scoresMap.get(currentCategory)[0],
-                scoresMap.get("GYM")[1], scoresMap.get("GYM")[2], wordLists[0]));
-        cards.add(new CardContent("ANIMALS", drawables.get(0),
-                "13","12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.animals)))));
-        cards.add(new CardContent("CHAVON", drawables.get(2), "13",
-                "12", "120", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.professions)))));
-        cards.add(new CardContent("CULTURES", drawables.get(4), "12",
-                "12", "120",new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));
-        cards.add(new CardContent("ACTIONS", drawables.get(1), "12",
-                "12", "1200", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.actions)))));
-        cards.add(new CardContent("ACCENTS", drawables.get(4), "12",
-                "12", "12", new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.countries)))));*/
-
         registerCards(cards);
     }
 
@@ -169,41 +164,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for(final CardContent card : cards)
         {
-            View cv = inf.inflate(R.layout.card, null, false);
+            View cardView = inf.inflate(R.layout.card, null, false);
 
-            ImageView img = cv.findViewById(R.id.popcorn);
+            ImageView img = cardView.findViewById(R.id.cardImage);
             img.setImageDrawable(card.getCardImage());
 
-            TextView tv = cv.findViewById(R.id.desc);
+            TextView tv = cardView.findViewById(R.id.desc);
             tv.setText(card.getCardText());
 
-            TextView tvTime = cv.findViewById(R.id.cardTime);
+            TextView tvTime = cardView.findViewById(R.id.cardTime);
             tvTime.setText(time);
 
-            TextView tvScore = cv.findViewById(R.id.cardScore);
+            TextView tvScore = cardView.findViewById(R.id.cardScore);
             if(time.equals("60"))
             {
                 tvScore.setText(card.getScore60());
-                selectedTimeframe = 0;
+                selectedTimeFrame = 0;
             }
             else if(time.equals("90"))
             {
                 tvScore.setText(card.getScore90());
-                selectedTimeframe = 1;
+                selectedTimeFrame = 1;
             }
             else if(time.equals("120"))
             {
                 tvScore.setText(card.getScore120());
-                selectedTimeframe = 2;
+                selectedTimeFrame = 2;
             }
             else
             {
                 tvScore.setText("0");
-                selectedTimeframe = 0;
+                selectedTimeFrame = 0;
             }
 
             final String currentText = card.getCardText();
-            cv.setOnClickListener(new View.OnClickListener() {
+
+            cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     TextView sel = findViewById(R.id.select);
@@ -216,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
-            li.addView(cv);
+            li.addView(cardView);
         }
     }
 
@@ -250,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editNameDialogFragment.show(fm, theme);
     }
 
-    private void getScores()
+    private void getSavedScoresFromMemory()
     {
         scoresMap = new HashMap<>();
         for(String category : categories)
@@ -278,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String json = sharedPref.getString(category, null);
         if(json == null)
         {
-            scores = new String[]{"0", "0", "0"};
+            scores = GameParameters.DEFAULT_SCORE_ARRAY;
         }
         else
         {
@@ -287,6 +283,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return scores;
+    }
+
+    private void launchGameActivity()
+    {
+        intent = new Intent(this, GameActivity.class);
+        loadIntent(intent);
+        fillGameScoreManager();
+        startActivity(intent);
     }
 
 
@@ -301,12 +305,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wordLists[5] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.countries)));
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        if(GameScoresManager.isScoreChanged())
-        {
-            restart();
-        }
+    private void loadIntent(Intent intent)
+    {
+        intent.putExtra(GameParameters.THEME_KEY, theme);
+        intent.putExtra(GameParameters.CATEGORY_KEY, chosenCategory);
+        intent.putExtra(GameParameters.WORDLIST_KEY, chosenWordList);
+        intent.putExtra(GameParameters.TIME_KEY, time);
+
     }
+
+    private void fillGameScoreManager()
+    {
+        GameScoresManager.setHighscoreToBeat(Integer.parseInt(scoresMap.get(chosenCategory)[selectedTimeFrame]));
+        GameScoresManager.setWorkingCategory(chosenCategory);
+        GameScoresManager.setWorkingTime(time);
+    }
+
+
 }
