@@ -114,9 +114,7 @@ public class ResultsDialogFragment extends DialogFragment implements View.OnClic
 
     private void saveScores()
     {
-        GameScoresManager.saveScore("ANIMALS", "60", "0");
-        GameScoresManager.saveScore("GYM", "120", "0");
-        GameScoresManager.saveScore("GYM", "60", "200");
+        GameScoresManager.processScore(fragCorrectWords.size());
     }
 
 

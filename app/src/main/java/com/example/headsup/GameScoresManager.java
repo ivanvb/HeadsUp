@@ -12,6 +12,26 @@ public class GameScoresManager {
     private static HashMap<String, String[]> scores;
     private static SharedPreferences scoreSharedPreferences;
     private static SharedPreferences.Editor scoreEditor;
+    private static int highscoreToBeat;
+    private static String workingCategory;
+    private static String workingTime;
+    private static boolean scoreChanged;
+
+    public static String getWorkingTime() {
+        return workingTime;
+    }
+
+    public static void setWorkingTime(String workingTime) {
+        GameScoresManager.workingTime = workingTime;
+    }
+
+    public static String getWorkingCategory() {
+        return workingCategory;
+    }
+
+    public static void setWorkingCategory(String workingCategory) {
+        GameScoresManager.workingCategory = workingCategory;
+    }
 
     public static void setScores(HashMap<String, String[]> receivedScores)
     {
@@ -71,4 +91,28 @@ public class GameScoresManager {
         scoreEditor.apply();
     }
 
+    public static int getHighscoreToBeat() {
+        return highscoreToBeat;
+    }
+
+    public static void setHighscoreToBeat(int highscoreToBeat) {
+        GameScoresManager.highscoreToBeat = highscoreToBeat;
+    }
+
+    public static boolean isScoreChanged() {
+        return scoreChanged;
+    }
+
+    public static boolean processScore(int score)
+    {
+        if(score > highscoreToBeat)
+        {
+            saveScore(workingCategory, workingTime, Integer.toString(score));
+            scoreChanged = true;
+            return true;
+        }
+
+        scoreChanged = false;
+        return false;
+    }
 }

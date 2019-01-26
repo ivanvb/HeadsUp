@@ -15,15 +15,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, IFragmentListener{
 
@@ -39,19 +36,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     HashMap<String, String[]> scoresMap;
     ArrayList<String> categories;
     ArrayList[] wordLists;
+    HashMap<String, Integer> timeMap;
+    int selectedTimeframe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeSharedPreferences();
+        timeMap = new HashMap<String, Integer>()
+        {
+            {
+                put("60", 0);
+                put("90", 1);
+                put("120", 2);
+            }
 
+        };
 
         categories = new ArrayList<>(Arrays.asList((getResources().getStringArray(R.array.categories))));
         getScores();
         updateTheme();
         setWordListIds();
         getScores();
-       // saveScores();
+
         setContentView(R.layout.activity_main);
 
         btn = findViewById(R.id.btnPlay);
@@ -100,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("category", chosenCategory);
             intent.putExtra("wordList", chosenWordList);
             intent.putExtra("time", time);
+            GameScoresManager.setHighscoreToBeat(Integer.parseInt(scoresMap.get(chosenCategory)[selectedTimeframe]));
+            GameScoresManager.setWorkingCategory(chosenCategory);
+            GameScoresManager.setWorkingTime(time);
             startActivity(intent);
         }
     }
@@ -174,18 +184,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(time.equals("60"))
             {
                 tvScore.setText(card.getScore60());
+                selectedTimeframe = 0;
             }
             else if(time.equals("90"))
             {
                 tvScore.setText(card.getScore90());
+                selectedTimeframe = 1;
             }
             else if(time.equals("120"))
             {
                 tvScore.setText(card.getScore120());
+                selectedTimeframe = 2;
             }
             else
             {
                 tvScore.setText("0");
+                selectedTimeframe = 0;
             }
 
             final String currentText = card.getCardText();
@@ -287,8 +301,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wordLists[5] = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.countries)));
     }
 
-
-
-
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(GameScoresManager.isScoreChanged())
+        {
+            restart();
+        }
+    }
 }
