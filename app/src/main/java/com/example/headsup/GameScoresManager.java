@@ -47,6 +47,17 @@ public class GameScoresManager {
         scoreSharedPreferences = sharedPreferences;
         scoreEditor = editor;
     }
+    public static int getHighscoreToBeat() {
+        return highscoreToBeat;
+    }
+
+    public static void setHighscoreToBeat(int highscoreToBeat) {
+        GameScoresManager.highscoreToBeat = highscoreToBeat;
+    }
+
+    public static boolean isScoreChanged() {
+        return scoreChanged;
+    }
 
     public static HashMap<String, String[]> getScores()
     {
@@ -89,18 +100,6 @@ public class GameScoresManager {
         String json = gson.toJson(scores.get(category.toUpperCase()));
         scoreEditor.putString(category.toUpperCase(), json);
         scoreEditor.apply();
-    }
-
-    public static int getHighscoreToBeat() {
-        return highscoreToBeat;
-    }
-
-    public static void setHighscoreToBeat(int highscoreToBeat) {
-        GameScoresManager.highscoreToBeat = highscoreToBeat;
-    }
-
-    public static boolean isScoreChanged() {
-        return scoreChanged;
     }
 
     public static boolean processScore(int score)

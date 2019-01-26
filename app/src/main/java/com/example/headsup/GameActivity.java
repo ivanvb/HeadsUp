@@ -37,7 +37,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     ArrayList<String> words;
     long now, next;
     MediaPlayer mpc, mpi;
-    boolean soundAlreadyPlayed, gameTime;
+    boolean soundAlreadyPlayed, gameTime = false;
     SensorManager sensorManager;
     String currentWord;
     TextView tvWord;
@@ -87,7 +87,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     private void startPreparationTimer()
     {
-        gameTime = false;
         preparationTimer = new CountDownTimer(PREPARATION_TIME_IN_MILLIS, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
