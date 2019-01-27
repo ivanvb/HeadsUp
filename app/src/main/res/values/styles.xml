@@ -23,6 +23,8 @@
         <item name="trophyRes">@drawable/trophy_icon</item>
         <item name="arrowRes">@drawable/right_arrow_icon</item>
         <item name="checkRes">@drawable/check_icon</item>
+        <item name="twitterRes">@drawable/twitter_icon</item>
+        <item name="whatsappRes">@drawable/whatsapp_icon</item>
     </style>
 
 
@@ -50,6 +52,8 @@
         <item name="trophyRes">@drawable/trophy_icon_dark</item>
         <item name="arrowRes">@drawable/right_arrow_icon_dark</item>
         <item name="checkRes">@drawable/check_icon_dark</item>
+        <item name="twitterRes">@drawable/twitter_icon_dark</item>
+        <item name="whatsappRes">@drawable/whatsapp_icon_dark</item>
     </style>
 
 

@@ -115,7 +115,7 @@
             </ScrollView>
 
             <TextView
-                android:id="@+id/score"
+                android:id="@+id/finalScore"
                 android:layout_marginTop="5dp"
                 android:textColor="?attr/textColor"
                 android:layout_width="wrap_content"
@@ -136,7 +136,31 @@
                 android:textSize="24sp"
                 android:text="PLAY AGAIN"
                 android:padding="15dp"
-                android:layout_below="@+id/score"/>
+                android:layout_below="@+id/finalScore"/>
+
+            <ImageView
+                android:id="@+id/twitterImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="?attr/twitterRes"
+                android:layout_alignBottom="@+id/finalScore"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onClick"/>
+
+            <ImageView
+                android:id="@+id/whatsappImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="?attr/whatsappRes"
+                android:layout_alignBottom="@+id/finalScore"
+                android:layout_toStartOf="@+id/twitterImage"
+                android:layout_marginEnd="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="wsc"
+                />
 
 
         </RelativeLayout>

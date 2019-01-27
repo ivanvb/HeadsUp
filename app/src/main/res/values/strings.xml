@@ -309,4 +309,12 @@ Nunc tristique ipsum a magna vestibulum laoreet. Aliquam id nunc at orci auctor 
 Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse commodo lacinia facilisis. Nunc interdum nunc eu libero aliquam sodales ut nec nibh. Sed ac tellus fermentum, dictum orci at, cursus quam. Maecenas vitae porta mauris. Fusce eleifend dui vel sapien aliquam, id maximus urna pretium. Aliquam rutrum ligula id mi dignissim sagittis. Phasellus a lectus efficitur, scelerisque massa in, ultrices est. Sed dui arcu, accumsan sit amet magna a, feugiat facilisis risus. In at nisl in lacus sagittis semper at id enim. Nunc facilisis eget metus eu eleifend. Nulla eget leo congue sem iaculis convallis. Aliquam dictum eu ante id rhoncus. Suspendisse odio eros, pretium sit amet nisl id, scelerisque interdum mauris.
     </string>
 
+    <string name="whatsapp_message">
+        Hey I just got %1$d points in Heads Up. Download it now at https://bit.ly/2B6ECCN
+    </string>
+
+    <string name="twitter_message">
+        Hey I just got %1$d points in Heads Up. Download it now at https://bit.ly/2B6ECCN
+    </string>
+
 </resources>

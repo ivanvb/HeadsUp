@@ -1,5 +1,6 @@
 package com.example.headsup;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class ResultsDialogFragment extends DialogFragment implements View.OnClickListener{
@@ -48,13 +52,17 @@ public class ResultsDialogFragment extends DialogFragment implements View.OnClic
         Button btn = view.findViewById(R.id.btnPlayAgain);
         btn.setOnClickListener(this);
 
+        ImageView whatsappImg = view.findViewById(R.id.whatsappImage);
+        ImageView twitterImg = view.findViewById(R.id.twitterImage);
+        whatsappImg.setOnClickListener(this);
+        twitterImg.setOnClickListener(this);
         setScore();
         publishResults();
     }
 
     private void setScore()
     {
-        TextView scoreTv = getView().findViewById(R.id.score);
+        TextView scoreTv = getView().findViewById(R.id.finalScore);
         scoreTv.setText(getResources().getString(R.string.score_text)+ fragCorrectWords.size());
     }
 
@@ -95,6 +103,16 @@ public class ResultsDialogFragment extends DialogFragment implements View.OnClic
         {
             playAgainClicked = true;
             ((GameActivity)getActivity()).restart();
+        }
+        else if(v.getId() == R.id.whatsappImage)
+        {
+            ExternalMessage.sendWhatsappMessage(getContext(), String.format(getResources().
+                                        getString(R.string.whatsapp_message), fragCorrectWords.size()));
+        }
+        else if(v.getId() == R.id.twitterImage)
+        {
+            ExternalMessage.sendTweet(getContext(), String.format(getResources().
+                                        getString(R.string.twitter_message), fragCorrectWords.size()));
         }
     }
 
