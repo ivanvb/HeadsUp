@@ -14,4 +14,10 @@ public class GameParameters {
     public static final String TIME_KEY = "time";
     public static final String WORDLIST_KEY = "wordList";
     public static final String CATEGORY_KEY = "category";
+    public static final String MUSIC_KEY = "muisc";
+    public static final String SOUND_KEY = "sound";
+    public static final String SETTINGS_KEY = "Settings";
+    public static final int OUT_OF_POSITION_PITCH_DEGREE = 15;
+    public static final short CORRECT_ROLL_DEGREE = -120;
+    public static final short INCORRECT_ROLL_DEGREE = -35;
 }

@@ -27,23 +27,21 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, IFragmentListener{
 
     //Components
-    Button btn;
-    ImageView settingsImg;
-    Intent intent;
-    SharedPreferences sharedPref ;
-    SharedPreferences.Editor editor;
+    private Button btn;
+    private ImageView settingsImg;
+    private Intent intent;
+    private SharedPreferences sharedPref ;
+    private SharedPreferences.Editor editor;
 
     //Variables
-    String theme, music, sound, time, chosenCategory;
-    ArrayList <String> chosenWordList;
-    SettingsDialogFragment editNameDialogFragment;
-    HashMap<String, String[]> scoresMap;
-    ArrayList<String> categories;
-    ArrayList[] wordLists;
-    HashMap<String, Integer> timeMap;
-    int selectedTimeFrame;
-
-
+    private String theme, music, sound, time, chosenCategory;
+    private ArrayList <String> chosenWordList;
+    private SettingsDialogFragment settingsDialogFragment;
+    private HashMap<String, String[]> scoresMap;
+    private  ArrayList<String> categories;
+    private ArrayList[] wordLists;
+    private HashMap<String, Integer> timeMap;
+    private int selectedTimeFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,12 +86,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initializeSharedPreferences()
     {
-        sharedPref = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences(GameParameters.SETTINGS_KEY, Context.MODE_PRIVATE);
         editor = sharedPref.edit();
-        theme = sharedPref.getString("theme", GameParameters.DEFAULT_THEME);
-        music = sharedPref.getString("music", GameParameters.DEFAULT_MUSIC);
-        sound = sharedPref.getString("sound", GameParameters.DEFAULT_SOUND);
-        time = sharedPref.getString("time", GameParameters.DEFAULT_TIME);
+        theme = sharedPref.getString(GameParameters.THEME_KEY, GameParameters.DEFAULT_THEME);
+        music = sharedPref.getString(GameParameters.MUSIC_KEY, GameParameters.DEFAULT_MUSIC);
+        sound = sharedPref.getString(GameParameters.SOUND_KEY, GameParameters.DEFAULT_SOUND);
+        time = sharedPref.getString(GameParameters.TIME_KEY, GameParameters.DEFAULT_TIME);
     }
 
     private void updateTheme()
@@ -112,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        Toast.makeText(this, Integer.toString(view.getId()), Toast.LENGTH_SHORT).show();
         if(view.getId() == R.id.settings)
         {
             openSettingsFragment();
@@ -120,10 +117,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(view.getId() == R.id.btnPlay)
         {
             launchGameActivity();
-        }
-        else if(view.getId() == R.id.card)
-        {
-            Toast.makeText(this, "WAWAWA", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -242,8 +235,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void openSettingsFragment()
     {
         FragmentManager fm = getSupportFragmentManager();
-        editNameDialogFragment = SettingsDialogFragment.newInstance(theme, music, sound, time);
-        editNameDialogFragment.show(fm, theme);
+        settingsDialogFragment = SettingsDialogFragment.newInstance(theme, music, sound, time);
+        settingsDialogFragment.show(fm, theme);
     }
 
     private void getSavedScoresFromMemory()
@@ -263,8 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onInputSent(String input) {
 
-        editNameDialogFragment.receiveData(input);
-
+        settingsDialogFragment.receiveData(input);
     }
 
     private String[] getScoreArray(String category)
@@ -308,7 +300,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loadIntent(Intent intent)
     {
         intent.putExtra(GameParameters.THEME_KEY, theme);
-        intent.putExtra(GameParameters.CATEGORY_KEY, chosenCategory);
         intent.putExtra(GameParameters.WORDLIST_KEY, chosenWordList);
         intent.putExtra(GameParameters.TIME_KEY, time);
 
@@ -319,6 +310,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GameScoresManager.setHighscoreToBeat(Integer.parseInt(scoresMap.get(chosenCategory)[selectedTimeFrame]));
         GameScoresManager.setWorkingCategory(chosenCategory);
         GameScoresManager.setWorkingTime(time);
+    }
+
+    public ArrayList<String>getCategories()
+    {
+        return categories;
     }
 
 

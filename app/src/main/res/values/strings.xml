@@ -7,6 +7,8 @@
     <string name="incorrect">INCORRECT</string>
     <string name="settings_time_title">TIME SETTINGS</string>
     <string name="passed">PASSED</string>
+    <string name="time_is_up">TIME\'S UP</string>
+    <string name="adjust_device">PLEASE ADJUST YOUR DEVICE</string>
 
     <!--Settings related strings-->
     <string name="settings_title">SETTINGS</string>

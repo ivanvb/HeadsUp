@@ -21,23 +21,22 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class SettingsDialogFragment extends DialogFragment implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener{
 
-    SharedPreferences sharedPref ;
-    SharedPreferences.Editor editor;
+    //Components
+    private SharedPreferences sharedPref ;
+    private SharedPreferences.Editor editor;
     private static String fragTheme, fragMusic, fragSound, fragTime;
     private IFragmentListener listener;
-    Switch switchTheme, switchMusic, switchSoundEffects;
-    ImageView imgCheck;
-    boolean resetHighscore = false;
-    TextView tvTimeSetting;
+    private Switch switchTheme, switchMusic, switchSoundEffects;
+    private ImageView imgCheck;
+    private boolean resetHighScore = false;
+    private TextView tvTimeSetting;
 
-    public SettingsDialogFragment() {
-        // Empty constructor is required for DialogFragment
-        // Make sure not to add arguments to the constructor
-        // Use `newInstance` instead as shown below
-    }
+    public SettingsDialogFragment() { }
 
     public static SettingsDialogFragment newInstance(String theme, String music, String sound, String time) {
         SettingsDialogFragment frag = new SettingsDialogFragment();
@@ -66,22 +65,20 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         // Get field from view
         initializeSharedPreferences();
 
-
-
         switchTheme = view.findViewById(R.id.switchDarkMode);
-        setSwitchesState(fragTheme, "dark", switchTheme);
+        setSwitchesState(fragTheme, GameParameters.DARK_THEME, switchTheme);
         switchTheme.setOnCheckedChangeListener(this);
 
         switchMusic = view.findViewById(R.id.switchMusic);
-        setSwitchesState(fragMusic, "on", switchMusic);
+        setSwitchesState(fragMusic, GameParameters.DEFAULT_MUSIC, switchMusic);
         switchMusic.setOnCheckedChangeListener(this);
 
         switchSoundEffects = view.findViewById(R.id.switchSoundEffects);
-        setSwitchesState(fragSound, "on", switchSoundEffects);
+        setSwitchesState(fragSound, GameParameters.DEFAULT_SOUND, switchSoundEffects);
         switchSoundEffects.setOnCheckedChangeListener(this);
 
-        RelativeLayout rlResetHighscore = view.findViewById(R.id.layoutResetHighscore);
-        rlResetHighscore.setOnClickListener(this);
+        RelativeLayout rlResetHighScore = view.findViewById(R.id.layoutResetHighscore);
+        rlResetHighScore.setOnClickListener(this);
 
         RelativeLayout rlTime = view.findViewById(R.id.layoutTime);
         rlTime.setOnClickListener(this);
@@ -92,8 +89,6 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         imgCheck = view.findViewById(R.id.imgCheck);
         Button btnApplyChanges = view.findViewById(R.id.btnApplyChanges);
         btnApplyChanges.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -102,7 +97,11 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
         if(v.getId() == R.id.btnApplyChanges)
         {
             saveChanges();
-            listener.onInputSent(fragTime + "commit");
+            if(resetHighScore)
+            {
+                ArrayList<String> categories = ((MainActivity)getActivity()).getCategories();
+                resetValues(categories);
+            }
             ((MainActivity)getActivity()).restart();
             dismiss();
         }
@@ -120,7 +119,8 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(buttonView.getId() == R.id.switchDarkMode)
         {
-            fragTheme = changeState(fragTheme, new Pair<>("dark", "light"));
+            fragTheme = changeState(fragTheme,
+                    new Pair<>(GameParameters.DARK_THEME, GameParameters.LIGHT_THEME));
         }
         else if(buttonView.getId() == R.id.switchMusic)
         {
@@ -165,10 +165,10 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
 
     private void saveChanges()
     {
-        saveState("theme", fragTheme);
-        saveState("music", fragMusic);
-        saveState("sound", fragSound);
-        saveState("time", fragTime);
+        saveState(GameParameters.THEME_KEY, fragTheme);
+        saveState(GameParameters.MUSIC_KEY, fragMusic);
+        saveState(GameParameters.SOUND_KEY, fragSound);
+        saveState(GameParameters.TIME_KEY, fragTime);
     }
 
     private void saveState(String id, String state)
@@ -179,15 +179,26 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
 
     private void changeResetHighScoreState()
     {
-        resetHighscore = !resetHighscore;
-        imgCheck.setAlpha((resetHighscore)? 1f : 0f);
+        resetHighScore = !resetHighScore;
+        imgCheck.setAlpha((resetHighScore)? 1f : 0f);
     }
 
     private void openTimeSelectionFragment()
     {
         FragmentManager fm = getFragmentManager();
         TimeSelectSettingDialogFragment editNameDialogFragment = TimeSelectSettingDialogFragment.newInstance(fragTime);
-        editNameDialogFragment.show(fm, "time select");
+        editNameDialogFragment.show(fm, null);
+    }
+
+    private void resetValues(ArrayList<String> categories)
+    {
+        for(String category : categories)
+        {
+            sharedPref = getActivity().getSharedPreferences(GameParameters.SETTINGS_KEY, Context.MODE_PRIVATE);
+            editor = sharedPref.edit();
+            editor.remove(category);
+            editor.apply();
+        }
     }
 
 

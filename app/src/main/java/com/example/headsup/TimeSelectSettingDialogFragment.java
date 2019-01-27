@@ -124,7 +124,6 @@ public class TimeSelectSettingDialogFragment extends DialogFragment implements V
         super.onDismiss(dialog);
 
         listener.onInputSent(currentTimespamp);
-
     }
 
     @Override
