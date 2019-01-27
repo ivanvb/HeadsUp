@@ -9,6 +9,10 @@
     <string name="passed">PASSED</string>
     <string name="time_is_up">TIME\'S UP</string>
     <string name="adjust_device">PLEASE ADJUST YOUR DEVICE</string>
+    <string name="score_text">Score: </string>
+    <string name="about">ABOUT</string>
+    <string name="signature">APPLICATION CREATED BY IVAN VALETTE</string>
+    <string name="icons_signature">ICONS PROVIDED BY icons8.com</string>
 
     <!--Settings related strings-->
     <string name="settings_title">SETTINGS</string>

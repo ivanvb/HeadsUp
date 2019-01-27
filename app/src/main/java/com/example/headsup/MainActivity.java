@@ -118,6 +118,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             launchGameActivity();
         }
+        else if(view.getId() == R.id.helpImg)
+        {
+            openAboutFragment();
+        }
+    }
+
+    private void openAboutFragment()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        AboutDialogFragment aboutDialogFragment = AboutDialogFragment.newInstance();
+        aboutDialogFragment.show(fm, null);
     }
 
 

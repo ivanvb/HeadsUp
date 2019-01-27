@@ -12,9 +12,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -149,7 +152,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
             public void onTick(long millisUntilFinished) {
                 tvWord.setText(Long.toString(millisUntilFinished/MILLIS_IN_A_SECOND));
             }
-
             @Override
             public void onFinish() {
                 gameTime = true;

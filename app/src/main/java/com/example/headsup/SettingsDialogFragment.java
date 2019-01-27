@@ -41,7 +41,7 @@ public class SettingsDialogFragment extends DialogFragment implements View.OnCli
     public static SettingsDialogFragment newInstance(String theme, String music, String sound, String time) {
         SettingsDialogFragment frag = new SettingsDialogFragment();
         Bundle args = new Bundle();
-        args.putString("theme", theme);
+        args.putString(GameParameters.THEME_KEY, theme);
         frag.setArguments(args);
 
         fragTheme = theme;

@@ -1,7 +1,6 @@
 package com.example.headsup;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,25 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ResultsDialogFragment extends DialogFragment implements View.OnClickListener{
 
     private static ArrayList<String> fragCorrectWords, fragIncorrectWords;
     boolean playAgainClicked;
-    public ResultsDialogFragment()
-    {
+    public ResultsDialogFragment() { }
 
-    }
-
-    public static ResultsDialogFragment newInstance(ArrayList<String> correct, ArrayList<String> incorrect) {
-
-
-        fragCorrectWords = correct;
-        fragIncorrectWords = incorrect;
+    public static ResultsDialogFragment newInstance(ArrayList<String> correctWords,
+                                                    ArrayList<String> incorrectWords) {
+        fragCorrectWords = correctWords;
+        fragIncorrectWords = incorrectWords;
 
         Bundle args = new Bundle();
 
@@ -58,7 +50,42 @@ public class ResultsDialogFragment extends DialogFragment implements View.OnClic
 
         setScore();
         publishResults();
+    }
 
+    private void setScore()
+    {
+        TextView scoreTv = getView().findViewById(R.id.score);
+        scoreTv.setText(getResources().getString(R.string.score_text)+ fragCorrectWords.size());
+    }
+
+    private void publishResults()
+    {
+        TextView tvCorrect, tvIncorrect;
+        tvCorrect = getView().findViewById(R.id.tvCorrectWords);
+        tvIncorrect = getView().findViewById(R.id.tvIncorrectWords);
+
+        StringBuilder correct = new StringBuilder();
+        StringBuilder incorrect = new StringBuilder();
+
+        for(int i = 0; i < fragCorrectWords.size(); i++)
+        {
+            correct.append(fragCorrectWords.get(i));
+            correct.append("\n\n");
+        }
+
+        for(int i = 0; i < fragIncorrectWords.size(); i++)
+        {
+            incorrect.append(fragIncorrectWords.get(i));
+            incorrect.append("\n\n");
+        }
+
+        tvCorrect.setText(correct.toString());
+        tvIncorrect.setText(incorrect.toString());
+    }
+
+    private void saveScores()
+    {
+        GameScoresManager.processScore(fragCorrectWords.size());
     }
 
     @Override
@@ -71,36 +98,6 @@ public class ResultsDialogFragment extends DialogFragment implements View.OnClic
         }
     }
 
-    private void publishResults()
-    {
-        TextView tvCorrect, tvIncorrect;
-        tvCorrect = getView().findViewById(R.id.tvCorrectWords);
-        tvIncorrect = getView().findViewById(R.id.tvIncorrectWords);
-
-        String correct = "", incorrect = "";
-
-        for(int i = 0; i < fragCorrectWords.size(); i++)
-        {
-            correct += fragCorrectWords.get(i);
-            correct += "\n\n";
-        }
-
-        for(int i = 0; i < fragIncorrectWords.size(); i++)
-        {
-            incorrect += fragIncorrectWords.get(i);
-            incorrect += "\n\n";
-        }
-
-        tvCorrect.setText(correct);
-        tvIncorrect.setText(incorrect);
-    }
-
-    private void setScore()
-    {
-        TextView scoreTv = getView().findViewById(R.id.score);
-        scoreTv.setText("Score: " + fragCorrectWords.size());
-    }
-
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
@@ -110,11 +107,6 @@ public class ResultsDialogFragment extends DialogFragment implements View.OnClic
         }
         saveScores();
 
-    }
-
-    private void saveScores()
-    {
-        GameScoresManager.processScore(fragCorrectWords.size());
     }
 
 
