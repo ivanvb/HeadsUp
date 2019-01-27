@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Heads Up</string>
+    <string name="title">CABEZA ARRIBA</string>
+    <string name="selection">SELECCION</string>
+    <string name="play_button">JUGAR</string>
+    <string name="correct">CORRECTO</string>
+    <string name="incorrect">INCORRECTO</string>
+    <string name="settings_time_title">AJUSTES DE TIEMPO</string>
+    <string name="passed">SALTADA</string>
+    <string name="time_is_up">SE ACABO EL TIEMPO</string>
+    <string name="adjust_device">AJUSTA TU DISPOSITIVO</string>
+    <string name="score_text">RESULTADO</string>
+    <string name="about">ACERCA DE</string>
+    <string name="signature">APLICACIÓN CREADA POR IVÁN VALETTE</string>
+    <string name="icons_signature">ICONOS PROVISTOS POR icons8.com</string>
+    <string name="settings_title">AJUSTES</string>
+    <string name="dark_mode">MODO OSCURO</string>
+    <string name="music">MÚSICA</string>
+    <string name="sound_effects">EFECTOS DE SONIDO</string>
+    <string name="time">TIEMPO</string>
+    <string name="reset_high_scores">BORRAR PUNTUACIONES</string>
+    <string name="lorem_ipsum">LOREM IPSUM</string>
+    <string name="whatsapp_message">Hey acabo de conseguir %1$d puntos en Cabeza Arriba. Descargala ya en https://bit.ly/2B6ECCN</string>
+    <string name="twitter_message">Hey acabo de conseguir %1$d puntos en Cabeza Arriba. Descargala ya en https://bit.ly/2B6ECCN</string>
+
+</resources>

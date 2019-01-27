@@ -151,11 +151,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             currentCategory = categories.get(i);
             cards.add(new CardContent(currentCategory,
-                                        drawables.get(i),
-                                        scoresMap.get(currentCategory)[0],
-                                        scoresMap.get(currentCategory)[1],
-                                        scoresMap.get(currentCategory)[2],
-                                        wordLists[i]));
+                    drawables.get(i),
+                    scoresMap.get(currentCategory)[0],
+                    scoresMap.get(currentCategory)[1],
+                    scoresMap.get(currentCategory)[2],
+                    wordLists[i]));
 
         }
         registerCards(cards);
